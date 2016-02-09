@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +24,12 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
+    Route::get('/campaigns',     [ 'as' => 'campaigns.list', 'uses' => 'Campaigns@show' ]);
+    Route::get('/campaign/add',  [ 'as' => 'campaign.add',   'uses' => 'Campaigns@add'  ]);
+    Route::post('/campaign/add', [ 'as' => 'campaign.save',  'uses' => 'Campaigns@save' ]);
 });

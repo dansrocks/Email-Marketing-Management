@@ -32,6 +32,14 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="{{ route('campaigns.list') }}" class="dropdown-toggle" data-toggle="dropdown">Campaigns<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('campaigns.list') }}">List campaigns</a></li>
+                            <li><a href="{{ route('campaign.add') }}">Add new...</a></li>
+                        </ul>
+                    </li>
+      
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
@@ -39,7 +47,23 @@
         </div>
     </nav>
 
+
     <div class="container">
+        
+        <ol class="breadcrumb">
+            <li><a href="{{ url('/') }}">Home</a></li>
+            @yield('breadcrumb')
+        </ol>
+        
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>@foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif        
+
         @yield('content')
     </div>
 
