@@ -29,7 +29,10 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
     
-    Route::get('/campaigns',     [ 'as' => 'campaigns.list', 'uses' => 'Campaigns@show' ]);
-    Route::get('/campaign/add',  [ 'as' => 'campaign.add',   'uses' => 'Campaigns@add'  ]);
-    Route::post('/campaign/add', [ 'as' => 'campaign.save',  'uses' => 'Campaigns@save' ]);
+    Route::get ('/campaigns', [ 'as' => 'campaigns.list', 'uses' => 'Campaigns@show' ]);
+    Route::get ('/campaign/add', [ 'as' => 'campaign.create',   'uses' => 'Campaigns@add'  ]);
+    Route::post('/campaign/add', [ 'as' => 'campaign.create',  'uses' => 'Campaigns@create' ]);
+    Route::get ('/campaign/{id}/edit', [ 'as' => 'campaign.edit',  'uses' => 'Campaigns@edit' ]);
+    Route::post('/campaign/{id}/edit', [ 'as' => 'campaign.update',  'uses' => 'Campaigns@update' ]);
+    Route::get ('/campaign/{id}/delete',  [ 'as' => 'campaign.delete',   'uses' => 'Campaigns@delete'  ]);
 });

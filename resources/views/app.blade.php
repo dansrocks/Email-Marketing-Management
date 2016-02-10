@@ -36,7 +36,7 @@
                         <a href="{{ route('campaigns.list') }}" class="dropdown-toggle" data-toggle="dropdown">Campaigns<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('campaigns.list') }}">List campaigns</a></li>
-                            <li><a href="{{ route('campaign.add') }}">Add new...</a></li>
+                            <li><a href="{{ route('campaign.create') }}">Add new...</a></li>
                         </ul>
                     </li>
       

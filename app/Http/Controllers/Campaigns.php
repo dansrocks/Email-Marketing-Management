@@ -14,9 +14,9 @@ class Campaigns extends Controller
 {
     public function show()
     {
-        $fields = [ 'name' ];
+        $fields = [ 'id', 'name' ];
         $campaigns = Campaign::select($fields)
-                ->orderBy('created_at', 'asc')
+                ->orderBy('id', 'asc')
                 ->get();
         
         $content = [
@@ -27,11 +27,26 @@ class Campaigns extends Controller
     
     public function add()
     {
-        return view('campaigns/add');
+        return view('campaigns/add_or_edit');
     }
 
     
-    public function save(CampaignRequest $request)
+    public function edit($id)
+    {
+        $campaign = Campaign::find($id);
+        
+        if ($campaign) {
+            $content = [ 'campaign' => $campaign ];
+            $response = view('campaigns/add_or_edit', $content);
+        } else {
+            $response = redirect()->route('campaigns.list')
+                    ->with('message', 'Invalid campaign.');
+        }
+        
+        return $response;
+    }
+    
+    public function create(CampaignRequest $request)
     {
         $campaign = $request->fill(new Campaign());
         
@@ -41,6 +56,37 @@ class Campaigns extends Controller
             $response->with('errors', 'BAD');
         }
                 
+        return $response;
+    }
+
+    public function update($id, CampaignRequest $request)
+    {
+        $response = redirect()->route('campaigns.list');
+
+        $campaign = Campaign::find($id);
+        if ($campaign) {
+            $request->fill($campaign)->save();
+            $response->with('message', 'Campaign updated');
+        } else {
+            $response->with('message', 'Invalid campaign');
+        }
+                
+        return $response;
+    }
+    
+    public function delete($id)
+    {
+        $campaign = Campaign::find($id);
+
+        $response = redirect()->route('campaigns.list');
+        
+        if ($campaign) {
+            $campaign->delete();
+            $response->with('message', 'Campaign has been deleted sucessfully');
+        } else {
+            $response->with('message', 'Invalid campaign.');
+        }
+        
         return $response;
     }
 }
