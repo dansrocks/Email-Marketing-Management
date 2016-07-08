@@ -21,6 +21,7 @@
 
 				<div class="panel-body">
 					<p><a class="btn btn-success" href="{{ route('campaigns.list') }}">Manage Campaigns</a></p>
+					<p><a class="btn btn-success" href="{{ route('recipients.select_campaign') }}">Manage Recipients</a></p>
 				</div>
 			</div>
 		</div>

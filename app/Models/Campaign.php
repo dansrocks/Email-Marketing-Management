@@ -10,14 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 class Campaign extends Model
 {
     protected $table = 'emm_campaigns';
-    
+
+    public $timestamps = true;
+
     protected $fillable = [
         'name'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function recipients()
     {
-        return $this->belongsTo('App\Models\Recipient');
+        return $this->hasMany('App\Models\Recipient');
     }
 
 }

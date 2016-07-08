@@ -35,4 +35,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get ('/campaign/{id}/edit', [ 'as' => 'campaign.edit',  'uses' => 'Campaigns@edit' ]);
     Route::post('/campaign/{id}/edit', [ 'as' => 'campaign.update',  'uses' => 'Campaigns@update' ]);
     Route::get ('/campaign/{id}/delete',  [ 'as' => 'campaign.delete',   'uses' => 'Campaigns@delete'  ]);
+
+    // Routes for recipients manage
+    require_once('routes_recipients.php');
+
 });

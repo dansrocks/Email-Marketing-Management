@@ -11,7 +11,9 @@ use App\Models\Campaign;
  */
 class Campaigns
 {
-
+    /**
+     * @return mixed
+     */
     public static function getCampaignsList()
     {
         $fields = [ 'id', 'name' ];
@@ -20,6 +22,18 @@ class Campaigns
             ->get();
 
         return $campaigns;
+    }
+
+    /**
+     * @param integer $id
+     *
+     * @return \App\Models\Campaign
+     *
+     * @throw Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public static function getCampaignById($id)
+    {
+        return Campaign::findOrFail($id);
     }
 
 }

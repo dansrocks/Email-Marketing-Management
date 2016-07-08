@@ -13,6 +13,8 @@ class Recipient extends Model
 {
     protected $table = 'emm_recipients';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'email'
@@ -25,6 +27,6 @@ class Recipient extends Model
      */
     public function campaign()
     {
-        return $this->hasOne('App\Models\Campaign');
+        return $this->belongsTo('App\Models\Campaign');
     }
 }
