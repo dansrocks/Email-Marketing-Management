@@ -5,32 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Campaign as CampaignRequest;
 use App\Models\Campaign;
 
+use \App\Managers\Campaigns as CampaignsManager;
+
+/**
+ * Class Campaigns
+ * @package App\Http\Controllers
+ */
 class Campaigns extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
-        $fields = [ 'id', 'name' ];
-        $campaigns = Campaign::select($fields)
-                ->orderBy('id', 'asc')
-                ->get();
-        
         $content = [
-            'campaigns' => $campaigns
+            'campaigns' => CampaignsManager::getCampaignsList()
         ];        
         return view('campaigns/list', $content);
     }
-    
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add()
     {
         return view('campaigns/add_or_edit');
     }
 
-    
+    /**
+     * @param integer $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $campaign = Campaign::find($id);
@@ -45,7 +54,12 @@ class Campaigns extends Controller
         
         return $response;
     }
-    
+
+    /**
+     * @param CampaignRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function create(CampaignRequest $request)
     {
         $campaign = $request->fill(new Campaign());
@@ -59,6 +73,12 @@ class Campaigns extends Controller
         return $response;
     }
 
+    /**
+     * @param integer $id
+     * @param CampaignRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, CampaignRequest $request)
     {
         $response = redirect()->route('campaigns.list');
@@ -73,7 +93,12 @@ class Campaigns extends Controller
                 
         return $response;
     }
-    
+
+    /**
+     * @param integer $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $campaign = Campaign::find($id);
