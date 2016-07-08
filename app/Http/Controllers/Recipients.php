@@ -42,7 +42,6 @@ class Recipients extends Controller
      */
     public function showStats($id)
     {
-        echo "<pre>\n";
         $campaign = CampaignsManager::getCampaignById($id);
         $recipients_stats = CampaignHelper::getRecipientsStats($campaign);
 
