@@ -14,4 +14,10 @@ class Campaign extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function recipients()
+    {
+        return $this->belongsTo('App\Models\Recipient');
+    }
+
 }
