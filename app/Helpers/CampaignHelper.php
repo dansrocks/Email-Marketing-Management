@@ -19,10 +19,8 @@ class CampaignHelper
      */
     public static function getRecipientsStats(\App\Models\Campaign $campaign)
     {
-        $recipients = $campaign->recipients;
-
         $domains = [];
-        foreach ($recipients as $recipient) {
+        foreach ($campaign->recipients as $recipient) {
             $email_parts = explode('@', $recipient->email, 2);
             $domain = array_pop($email_parts);
             if (isset($domains[$domain])) {
@@ -36,4 +34,26 @@ class CampaignHelper
 
         return $domains;
     }
+
+    public static function createRecipientsCsvFile(\App\Models\Campaign $campaign)
+    {
+        $filename = false;
+
+        if ($campaign) {
+            $filename = EnvironmentHelper::getTempFilename(null);
+            $fh = fopen($filename, "w+");
+            if (! $fh) {
+                throw new \Exception("Error al abrir fichero para escritura");
+            }
+            $headers = ['name', 'email'];
+            fputcsv($fh, $headers);
+            foreach ($campaign->recipients as $recipient) {
+                fputcsv($fh, [$recipient->name, $recipient->email]);
+            }
+            fclose($fh);
+        }
+
+        return $filename;
+    }
+
 }

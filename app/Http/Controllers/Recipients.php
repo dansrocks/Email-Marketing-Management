@@ -53,6 +53,28 @@ class Recipients extends Controller
         return view('recipients/list', $content);
     }
 
+    /**
+     * Devuelve los destinatarios de la campaña (en formato CSV)
+     *
+     * @param integer $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * Nota: los ficheros
+     */
+    public function download($id)
+    {
+        $campaign = CampaignsManager::getCampaignById($id);
+        $csv_file = CampaignHelper::createRecipientsCsvFile($campaign);
+
+        $filename = sprintf("Destinatarios_%s_%s.csv",
+            Str::slug($campaign->name),
+            date("Ymd")
+        );
+
+        return response()->download($csv_file, $filename);
+    }
+
 
     /**
      * Generador de Recipients para pruebas

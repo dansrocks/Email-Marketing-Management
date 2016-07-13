@@ -7,6 +7,7 @@
     <title>Laravel</title>
 
     {!! Html::style('assets/bootstrap/3.3.6/css/bootstrap.css') !!}
+    {!! Html::style('assets/css/emm.css') !!}
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
