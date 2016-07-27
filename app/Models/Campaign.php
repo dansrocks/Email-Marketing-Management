@@ -9,12 +9,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Campaign extends Model
 {
+    const STATUS_ACTIVE   = 'active';
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_ARCHIVED = 'archived';
+    const STATUS_DELETED  = 'deleted';
+
+
     protected $table = 'emm_campaigns';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'name'
+        'name',
+        'status'
     ];
 
     /**
