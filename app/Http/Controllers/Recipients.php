@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CampaignHelper;
+use app\Helpers\EnvironmentHelper;
 use App\Managers\Campaigns as CampaignsManager;
 use App\Models\Recipient;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 
 /**
@@ -73,6 +75,26 @@ class Recipients extends Controller
         );
 
         return response()->download($csv_file, $filename);
+    }
+
+
+    /**
+     * Devuelve los destinatarios de la campaña (en formato CSV)
+     *
+     * @param integer $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * Nota: los ficheros
+     */
+    public function add($id)
+    {
+        $campaign = CampaignsManager::getCampaignById($id);
+
+        $file = Input::file('file')->getClientOriginalName();
+
+
+        return response();
     }
 
 
