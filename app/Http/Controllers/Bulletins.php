@@ -7,19 +7,17 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\Bulletin as BulletinRequest;
-use App\Models\Campaign;
 
 use \App\Managers\Bulletins as BulletinsManager;
 
 /**
- * Class Campaigns
+ * Class Bulletins
+ *
  * @package App\Http\Controllers
  */
 class Bulletins extends Controller
 {
     /**
-     * @param $campaignId
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show()
@@ -45,14 +43,14 @@ class Bulletins extends Controller
      */
     public function edit($id)
     {
-        $campaign = Campaign::find($id);
+        $bulletin = Bulletin::find($id);
         
-        if ($campaign) {
-            $content = [ 'campaign' => $campaign ];
-            $response = view('campaigns/add_or_edit', $content);
+        if ($bulletin) {
+            $content = [ 'bulletin' => $bulletin ];
+            $response = view('bulletins/add_or_edit', $content);
         } else {
-            $response = redirect()->route('campaigns.list')
-                    ->with('message', 'Invalid campaign.');
+            $response = redirect()->route('$bulletins.list')
+                    ->with('message', 'Invalid bulletin.');
         }
         
         return $response;
@@ -84,20 +82,20 @@ class Bulletins extends Controller
 
     /**
      * @param integer $id
-     * @param CampaignRequest $request
+     * @param BulletinRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, CampaignRequest $request)
+    public function update($id, BulletinRequest $request)
     {
-        $response = redirect()->route('campaigns.list');
+        $response = redirect()->route('bulletins.list');
 
-        $campaign = Campaign::find($id);
-        if ($campaign) {
-            $request->fill($campaign)->save();
-            $response->with('message', 'Campaign updated');
+        $bulletin = Bulletin::find($id);
+        if ($bulletin) {
+            $request->fill($bulletin)->save();
+            $response->with('message', 'Bulletin updated');
         } else {
-            $response->with('message', 'Invalid campaign');
+            $response->with('message', 'Invalid bulletin');
         }
                 
         return $response;
