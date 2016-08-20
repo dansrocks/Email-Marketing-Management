@@ -61,6 +61,7 @@
                 <div class="panel-body">
                     <div class="form-group col-md-12 text-center">
                         {{ Form::submit(isset($bulletin) ? 'Update' : 'Create', [ 'class' => "btn btn-success"]) }}
+                        &nbsp; <a href="{{ route('bulletins.list') }}" class="btn btn-success">Cancel</a>
                     </div>
 
                 </div>
