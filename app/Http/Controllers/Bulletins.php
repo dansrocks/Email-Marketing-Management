@@ -59,18 +59,24 @@ class Bulletins extends Controller
     }
 
     /**
-     * @param CampaignRequest $request
+     * @param BulletinRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function create(BulletinRequest $request)
     {
-        $campaign = $request->fill(new Bulletin());
-        
-        $response = redirect()->route('bulletins.list');
-        
-        if (! $campaign->save()) {
-            $response->with('errors', 'BAD');
+        $bulletin = $request->fill(new Bulletin());
+
+        if ($bulletin->save()) {
+            $response = redirect()
+                     ->route('bulletins.list')
+                     ->with('messages', 'Bulletin saved');
+        } else {
+            $content = [
+                'bulletin' => $bulletin
+            ];
+            $response = view('bulletins.add_or_edit', $content )
+                     ->with('errors', 'Error saving bulletin');
         }
                 
         return $response;
@@ -104,15 +110,15 @@ class Bulletins extends Controller
      */
     public function delete($id)
     {
-        $campaign = Campaign::find($id);
+        $bulletin = Bulletin::find($id);
 
-        $response = redirect()->route('campaigns.list');
+        $response = redirect()->route('bulletins.list');
         
-        if ($campaign) {
-            $campaign->delete();
-            $response->with('message', 'Campaign has been deleted sucessfully');
+        if ($bulletin) {
+            $bulletin->delete();
+            $bulletin->with('message', 'Bulletin has been deleted sucessfully');
         } else {
-            $response->with('message', 'Invalid campaign.');
+            $bulletin->with('message', 'Invalid bulletin.');
         }
         
         return $response;

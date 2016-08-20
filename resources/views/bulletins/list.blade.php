@@ -10,11 +10,14 @@
 @section('content')
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
+        <div class="text-right">
+            <a href="{{ route('bulletins.create') }}" class="btn btn-success">+ New bulletin</a>
+        </div>
+        <br />
         <div class="panel panel-default">
             <div class="panel-heading">@yield('section_name', 'Email Marketing Management')</div>
 
             <div class="panel-body">
-                
                 <ul class="bulletins list-group">
                     @forelse ($bulletins as $bulletin)
                     <li class="col-lg-12 col-xs-12 list-group-item">

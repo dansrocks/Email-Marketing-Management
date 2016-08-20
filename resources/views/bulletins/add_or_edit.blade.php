@@ -22,7 +22,7 @@
                 @endif
             </div>
 
-            @if(isset($bulletin))
+            @if(isset($bulletin) && $bulletin->id)
             {{ Form::open(array('route' => ['bulletins.edit', 'id' => $bulletin->id], 'role' => 'form' )) }}
             @else
             {{ Form::open(array('route' => 'bulletins.create', 'role' => 'form' )) }}

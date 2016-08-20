@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Bulletin  extends Model
+class Bulletin extends Model
 {
     protected $table = 'emm_bulletins';
 
