@@ -26,8 +26,16 @@
                                 <a href="{{ route('campaign.edit', ['id' => $campaign->id ]) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                             </button>
                         </div>
-                        {{ $campaign->name }}
-
+                        &nbsp; {{ $campaign->name }}
+                        <div class="pull-right">
+                        @if ($campaign->status == \App\Models\Campaign::STATUS_ACTIVE)
+                            <span class="label label-success">Active</span>
+                        @elseif ($campaign->status == \App\Models\Campaign::STATUS_INACTIVE)
+                            <span class="label label-primary">Inactive</span>
+                        @else
+                            <span class="label label-danger">Deleted</span>
+                        @endif
+                        </div>
                     </li>
                     @empty
                     <li class="list-group-item">No hay editoriales</li>
